@@ -17,10 +17,31 @@ double Func2(const double& x1, const double& x2) {
 	return cos(x2) - x1 + 0.85;
 }
 
+double df1dx1(const double& x1, const double& x2) {
+	return cos(x1);
+}
+double df1dx2(const double& x1, const double& x2) {
+	return -1;
+}
+double df2dx1(const double& x1, const double& x2) {
+	return - 1;
+}
+double df2dx2(const double& x1,const double& x2) {
+	return -sin(x2);
+}
 
 void Jacob(double** J, const double& x1, const double& x2) {
-	J[0][0] = cos(x1);			J[0][1] = -1;
-	J[1][0] = -sin(x2) - 1;		J[1][1] = -sin(x2);
+	J[0][0] = df1dx1(x1, x2);
+	J[0][1] = df1dx2(x1, x2);
+	J[1][0] = df2dx1(x1, x2);
+	J[1][1] = df2dx2(x1, x2);
+}
+
+void JacobM(double **J, double x1, double x2, double M) {
+	J[0][0] = (Func1(x1 + M * x1, x2) - Func1(x1, x2)) / (M * x1);
+	J[0][1] = (Func1(x1, x2 + M * x2) - Func1(x1, x2)) / (M * x2);
+	J[1][0] = (Func2(x1 + M * x1, x2) - Func2(x1, x2)) / (M * x1);
+	J[1][1] = (Func2(x1, x2 + M * x2) - Func2(x1, x2)) / (M * x2);
 }
 
 void Nevyaz(double* arr, const double& x1, const double& x2) {
@@ -86,6 +107,9 @@ double* Gauss(double** arr, const int& n, const int& m) {
 }
 
 double* Newton(const int& n, double& x1, double& x2) {
+
+	const double M = 0.1;
+
 	int NIT = 100;
 	double e = 1e-10;
 	double** J;
@@ -112,7 +136,7 @@ double* Newton(const int& n, double& x1, double& x2) {
 		}
 
 		Nevyaz(nevyaz, x1, x2);
-		Jacob(J, x1, x2);
+		JacobM(J, x1, x2, M);
 
 		NevPlJ(matrix, J, nevyaz, n);
 
