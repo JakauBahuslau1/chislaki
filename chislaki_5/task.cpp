@@ -7,7 +7,7 @@ int main()
     int n = 10; 
     double trapezoidal_result = trapezoidal(a, b, n);
     double simpson_result = simpson(a, b, n);
-    double double_simpson_method_result = double_simpson_method(a_kub, b_kub, c, d, n);
+    double double_simpson_method_result = calculate_double_simpson(a_kub, b_kub, c, d, n);
     cout << "Результат по формуле трапеций: " << trapezoidal_result << endl;
     cout << "Результат по формуле Симпсона: " << simpson_result << endl;
     cout << "Результат по кубатурной формуле формуле Симпсона: " << double_simpson_method_result << endl;
