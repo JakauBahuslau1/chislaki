@@ -120,8 +120,14 @@ double find_error(const std::vector<std::vector<double>> &matrix_clone, const st
     double denominator = std::abs(result[0]);
 
     for (int i = 0; i < result.size(); i++) {
-        if (numerator < std::abs(result[i] - second_result_vec[i]) && denominator < std::abs(result[i])) {
+        // if (numerator < std::abs(result[i] - second_result_vec[i]) && denominator < std::abs(result[i])) {
+        //     numerator = std::abs(result[i] - second_result_vec[i]);
+        //     denominator = std::abs(result[i]);
+        // }
+        if (numerator < std::abs(result[i] - second_result_vec[i])) {
             numerator = std::abs(result[i] - second_result_vec[i]);
+        }
+        if (denominator < std::abs(result[i])) {
             denominator = std::abs(result[i]);
         }
     }
@@ -129,5 +135,4 @@ double find_error(const std::vector<std::vector<double>> &matrix_clone, const st
     double delta = numerator / denominator;
 
     return delta;
-
 }
