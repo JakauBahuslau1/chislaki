@@ -4,6 +4,10 @@ double f(const double& x) {
     return (1+x*x)/(1+x*x*x);
 }
 
+double f(const double& x, const double& y) {
+	return x*x / (1 + y*y);
+}
+
 double trapezoidal(const double& a, const double& b, const int& n) {
     double h = (b - a) / n;
     double sum = 0.5 * (f(a) + f(b));
